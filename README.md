@@ -1,16 +1,69 @@
-# React + Vite
+# FreeAPI Fetch
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A consolidated React monorepo showcasing 7 distinct UI applications. Each project demonstrates frontend architecture, complex JSON data parsing, and modern UI design using data fetched from FreeAPI.app.
 
-Currently, two official plugins are available:
+🟢 Live Deployment: https://fetch-from-freeapi.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Projects Included
 
-## React Compiler
+1. [YouTube Interface](https://fetch-from-freeapi.vercel.app/youtube)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Description: A YouTube-style video listing interface. Fetches video data and displays it in a structured layout representing video cards properly.
 
-## Expanding the ESLint configuration
+- API Endpoint: https://api.freeapi.app/api/v1/public/youtube/videos
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2. [Product Showcase](https://fetch-from-freeapi.vercel.app/products)
+
+- Description: A product listing interface. Fetches product data and displays it in a structured format similar to a clean e-commerce layout.
+
+- API Endpoint: https://api.freeapi.app/api/v1/public/randomproducts
+
+3. [Recipe Explorer (Meals)](https://fetch-from-freeapi.vercel.app/meals)
+
+- Description: A meals and recipes listing interface. Displays meal information in a structured, readable, and visually clear layout.
+
+- API Endpoint: https://api.freeapi.app/api/v1/public/meals
+
+4.  [Jokes](https://fetch-from-freeapi.vercel.app/jokes)
+
+- Description: A jokes viewer interface. Fetches jokes from the API and displays them in a readable, simple, and engaging interactive format.
+
+- API Endpoint: https://api.freeapi.app/api/v1/public/randomjokes
+
+5. [Wisdom API (Quotes)](https://fetch-from-freeapi.vercel.app/quotes)
+
+- Description: A quotes listing interface designed as a quote gallery/generator. Presents quotes in a clean layout suitable for reading and browsing.
+
+- API Endpoint: https://api.freeapi.app/api/v1/public/quotes
+
+6. [Identity Generator (Users)](https://fetch-from-freeapi.vercel.app/users)
+
+- Description: A React-based user interface that reads API documentation and displays user information properly in structured user cards and profile-style views.
+
+- API Endpoint: https://api.freeapi.app/api/v1/public/randomusers
+
+7. [Feline Fetcher (Cats)](https://fetch-from-freeapi.vercel.app/cats)
+
+- Description: A random cat viewer application that fetches and displays cat images dynamically, updating the interface when new data is fetched.
+
+- API Endpoint: https://api.freeapi.app/api/v1/public/cats/cat/random
+
+## 🛠 Tech Stack
+
+Framework: React 19 + Vite
+
+Routing: React Router v7 (BrowserRouter)
+
+Styling: Tailwind CSS v4
+
+Icons: Lucide React
+
+Deployment: Vercel
+
+## ⚙️ Local Setup
+
+Clone the repository
+
+Install dependencies: npm install
+
+Start the development server: npm run dev
