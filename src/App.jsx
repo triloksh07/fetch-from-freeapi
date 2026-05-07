@@ -72,7 +72,7 @@ function LandingHub() {
     },
     {
       path: "/jokes",
-      name: "Chuck.API",
+      name: "Terminal.API",
       desc: "Neo-brutalist joke generator",
       icon: Terminal,
       color: "text-yellow-500",
