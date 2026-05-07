@@ -34,7 +34,7 @@ A consolidated React monorepo showcasing 7 distinct UI applications. Each projec
 
 - Description: A quotes listing interface designed as a quote gallery/generator. Presents quotes in a clean layout suitable for reading and browsing.
 
-- API Endpoint: https://api.freeapi.app/api/v1/public/quotes
+- API Endpoint: https://api.freeapi.app/api/v1/public/quotes/quote/random
 
 6. [Identity Generator (Users)](https://fetch-from-freeapi.vercel.app/users)
 
