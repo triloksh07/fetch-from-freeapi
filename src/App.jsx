@@ -30,7 +30,7 @@ import {
 import MealsApp from "./pages/MealsApp";
 import JokesApp from "./pages/JokesApp";
 import YtApp from "./pages/VideoApp";
-import QuotesApp from "./pages/QuotesApp";
+import RandomQuote from "./pages/RandomQuote";
 
 function LandingHub() {
   const projects = [
@@ -86,10 +86,10 @@ function LandingHub() {
   ];
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white p-6 sm:p-12">
+    <div className="min-h-screen bg-neutral-950 text-white">
       <div className="max-w-6xl mx-auto">
-        <header className="py-16 sm:py-24 border-b border-white/10 mb-12">
-          <h1 className="text-5xl sm:text-7xl font-black tracking-tighter mb-6 bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+        <header className="py-8 border-b border-white/10 mb-12">
+          <h1 className="text-5xl sm:text-7xl font-black tracking-tighter mb-6 bg-linear-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
             Trilok's Sandbox
           </h1>
           <p className="text-xl text-neutral-400 max-w-2xl leading-relaxed">
@@ -100,11 +100,10 @@ function LandingHub() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((proj) => (
-            // Notice the use of <Link> instead of <a>
             <Link
               key={proj.path}
               to={proj.path}
-              className="group block p-8 bg-neutral-900 border border-neutral-800 rounded-[2rem] hover:bg-neutral-800 transition-all hover:-translate-y-2 hover:border-neutral-600"
+              className="group block p-8 bg-neutral-900 border border-neutral-800 rounded-4xl hover:bg-neutral-800 transition-all hover:-translate-y-2 hover:border-neutral-600"
             >
               <div className="bg-neutral-950 p-4 rounded-2xl w-fit mb-6 shadow-inner border border-white/5">
                 <proj.icon className={`w-8 h-8 ${proj.color}`} />
@@ -134,7 +133,7 @@ export default function App() {
         {/* <Route path="/users" element={<UserApp />} /> */}
         {/* <Route path="/cats" element={<CatApp />} /> */}
         <Route path="/jokes" element={<JokesApp />} />
-        <Route path="/quotes" element={<QuotesApp />} />
+        <Route path="/quotes" element={<RandomQuote />} />
       </Routes>
     </BrowserRouter>
   );

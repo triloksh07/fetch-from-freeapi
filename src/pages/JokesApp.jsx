@@ -52,7 +52,7 @@ export default function JokesApp() {
           <div className="flex items-center gap-4 border-4 border-black bg-white p-3 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rounded-xl transform -rotate-1 hover:rotate-0 transition-transform">
             <Terminal className="w-8 h-8 text-orange-600" />
             <h1 className="text-2xl font-black uppercase tracking-tighter">
-              Chuck.API
+              Jokes
             </h1>
           </div>
 
