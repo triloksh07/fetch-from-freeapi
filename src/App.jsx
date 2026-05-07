@@ -91,7 +91,7 @@ function LandingHub() {
       <div className="max-w-6xl mx-auto">
         <header className="py-8 border-b border-white/10 mb-12">
           <h1 className="text-5xl sm:text-7xl font-black tracking-tighter mb-6 bg-linear-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
-            Trilok's Sandbox
+            Trilok's Fetch API Sandbox
           </h1>
           <p className="text-xl text-neutral-400 max-w-2xl leading-relaxed">
             A consolidated portfolio of API integrations, UI designs, and React
