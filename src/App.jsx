@@ -31,6 +31,7 @@ import MealsApp from "./pages/MealsApp";
 import JokesApp from "./pages/JokesApp";
 import YtApp from "./pages/VideoApp";
 import RandomQuote from "./pages/RandomQuote";
+import CatApp from "./pages/RandomCat";
 
 function LandingHub() {
   const projects = [
@@ -131,7 +132,7 @@ export default function App() {
         <Route path="/meals" element={<MealsApp />} />
         {/* <Route path="/products" element={<ProductApp />} /> */}
         {/* <Route path="/users" element={<UserApp />} /> */}
-        {/* <Route path="/cats" element={<CatApp />} /> */}
+        <Route path="/cats" element={<CatApp />} />
         <Route path="/jokes" element={<JokesApp />} />
         <Route path="/quotes" element={<RandomQuote />} />
       </Routes>
