@@ -18,10 +18,6 @@ export const PageLayout = ({ children, bgClass = "bg-neutral-50", title }) => {
             <h2 className="text-xl font-black text-black opacity-30 uppercase tracking-widest hidden sm:block">
               {title}
             </h2>
-
-            // <h2 className="text-xl font-black text-slate-400 uppercase tracking-widest hidden sm:block">
-            //   {title}
-            // </h2>
           )}
         </header>
         {children}

@@ -1,163 +1,159 @@
 import React, { useState, useEffect, useCallback } from "react";
-import {
-  Dices,
-  List,
-  RefreshCcw,
-  Hash,
-  Terminal,
-  Sparkles,
-} from "lucide-react";
+import { List, RefreshCcw, Terminal } from "lucide-react";
+// import { Link } from "react-router-dom";
+import { PageLayout } from "./lib/PageLayout";
 import { fetchData } from "../../lib/fetch";
 
 export default function JokesApp() {
   const [jokes, setJokes] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // UI State: 'single' for the random generator, 'list' for the feed
   const [viewMode, setViewMode] = useState("single");
-
-  // State for the currently displayed random joke
   const [activeRandomJoke, setActiveRandomJoke] = useState(null);
 
-  // Function to pick a random joke from our cached array
+  const url = "https://official-joke-api.appspot.com/jokes/programming/ten";
+
   const pickRandomJoke = useCallback((jokesArray) => {
     if (!jokesArray || jokesArray.length === 0) return;
     const randomIndex = Math.floor(Math.random() * jokesArray.length);
     setActiveRandomJoke(jokesArray[randomIndex]);
   }, []);
 
-  const url = "https://api.freeapi.app/api/v1/public/randomjokes";
-  // const quote = "https://api.freeapi.app/api/v1/public/quotes/quote/random";
-  // const quotesApi = "https://api.freeapi.app/api/v1/public/quotes";
-
   useEffect(() => {
     async function loadData() {
       setLoading(true);
       const res = await fetchData(url);
-      console.log("data from jokes api: ", res.payload);
-      setJokes(res.payload);
-      pickRandomJoke(res.payload);
-      // console.log("data from jokes api after set: ", jokes);
-      // console.log("random joke from api: ", activeRandomJoke);
+      const data = res.raw ?? res.payload ?? [];
+      setJokes(data);
+      pickRandomJoke(data);
       setLoading(false);
     }
     loadData();
-  }, [pickRandomJoke, url]);
+  }, [pickRandomJoke]);
 
   return (
-    <div className="min-h-screen bg-[#FFF0E5] text-black font-mono p-4 sm:p-8 flex justify-center selection:bg-orange-400">
-      <div className="w-full max-w-4xl">
-        {/* HEADER & CONTROLS */}
-        <header className="mb-12 flex flex-col sm:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-4 border-4 border-black bg-white p-3 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rounded-xl transform -rotate-1 hover:rotate-0 transition-transform">
-            <Terminal className="w-8 h-8 text-orange-600" />
-            <h1 className="text-2xl font-black uppercase tracking-tighter">
-              Jokes
-            </h1>
-          </div>
-
-          {/* View Toggle */}
-          <div className="flex bg-white border-4 border-black rounded-xl p-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-            <button
-              onClick={() => setViewMode("single")}
-              className={`flex items-center gap-2 px-6 py-3 rounded-lg font-bold uppercase tracking-wide transition-colors ${
-                viewMode === "single"
-                  ? "bg-black text-white"
-                  : "hover:bg-gray-200"
-              }`}
-            >
-              <Dices className="w-5 h-5" /> Randomizer
-            </button>
-            <button
-              onClick={() => setViewMode("list")}
-              className={`flex items-center gap-2 px-6 py-3 rounded-lg font-bold uppercase tracking-wide transition-colors ${
-                viewMode === "list"
-                  ? "bg-black text-white"
-                  : "hover:bg-gray-200"
-              }`}
-            >
-              <List className="w-5 h-5" /> Feed View
-            </button>
-          </div>
-        </header>
+    <PageLayout title="Terminal_Jokes.v1" bgClass="bg-[#F8F9FA]">
+      <main className="max-w-4xl mx-auto">
+        {/* VIEW TOGGLE - Integrated into the new layout style */}
+        <div className="flex mb-10 bg-slate-200/50 p-1 rounded-xl w-fit mx-auto border border-slate-300">
+          <button
+            onClick={() => setViewMode("single")}
+            className={`flex items-center gap-2 px-6 py-2 rounded-lg font-bold text-sm transition-all ${
+              viewMode === "single"
+                ? "bg-white text-black shadow-sm"
+                : "text-slate-500 hover:text-slate-800"
+            }`}
+          >
+            <Terminal className="w-4 h-4" /> Instance
+          </button>
+          <button
+            onClick={() => setViewMode("list")}
+            className={`flex items-center gap-2 px-6 py-2 rounded-lg font-bold text-sm transition-all ${
+              viewMode === "list"
+                ? "bg-white text-black shadow-sm"
+                : "text-slate-500 hover:text-slate-800"
+            }`}
+          >
+            <List className="w-4 h-4" /> Commit Log
+          </button>
+        </div>
 
         {loading ? (
-          /* NEO-BRUTALIST LOADER */
-          <div className="w-full h-64 border-4 border-black bg-white shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] rounded-2xl flex flex-col items-center justify-center gap-4">
-            <RefreshCcw className="w-12 h-12 animate-spin text-orange-500" />
-            <p className="font-bold text-xl uppercase tracking-widest">
-              Fetching Data...
+          <div className="flex flex-col items-center justify-center h-64 border-2 border-dashed border-slate-300 rounded-3xl">
+            <RefreshCcw className="w-8 h-8 animate-spin text-slate-400 mb-4" />
+            <p className="text-slate-400 font-mono text-sm uppercase tracking-widest">
+              Initializing Stream...
             </p>
           </div>
         ) : (
-          <main>
-            {/* --- VIEW 1: SINGLE RANDOM JOKE --- */}
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {/* --- VIEW 1: SINGLE TERMINAL INSTANCE --- */}
             {viewMode === "single" && activeRandomJoke && (
-              <div className="flex flex-col items-center animate-in fade-in zoom-in duration-300">
-                <div className="w-full relative border-4 border-black bg-white shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] rounded-2xl p-8 sm:p-12 mb-12">
-                  {/* Decorative Elements */}
-                  <div className="absolute -top-6 -left-6 bg-orange-400 border-4 border-black rounded-full p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                    <Sparkles className="w-8 h-8 text-black" />
-                  </div>
-
-                  {/* ID & Category Badge */}
-                  <div className="flex justify-between items-center mb-8 border-b-4 border-black pb-4">
-                    <span className="flex items-center gap-1 font-black text-xl text-gray-500">
-                      <Hash className="w-6 h-6" /> {activeRandomJoke.id}
+              <div className="flex flex-col items-center gap-8">
+                <div className="w-full font-mono bg-[#0D1117] text-slate-300 p-1 border-4 border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,0.05)] rounded-xl overflow-hidden">
+                  {/* Top Bar */}
+                  <div className="bg-[#161B22] p-3 border-b border-slate-800 flex justify-between items-center">
+                    <div className="flex gap-1.5">
+                      <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+                    </div>
+                    <span className="text-[10px] text-slate-500 font-black uppercase">
+                      node ./joke-fetcher.js
                     </span>
-                    {activeRandomJoke.categories?.length > 0 && (
-                      <span className="bg-black text-white px-4 py-1.5 uppercase font-bold text-sm tracking-widest">
-                        {activeRandomJoke.categories[0]}
-                      </span>
-                    )}
                   </div>
 
-                  {/* Joke Content */}
-                  <p className="text-2xl sm:text-4xl font-bold leading-tight font-sans tracking-tight">
-                    "{activeRandomJoke.content}"
-                  </p>
+                  {/* Content */}
+                  <div className="p-8 space-y-8 relative">
+                    <div className="flex gap-4">
+                      <span className="text-blue-400 font-bold">λ</span>
+                      <p className="text-xl sm:text-2xl font-bold text-white leading-relaxed">
+                        {activeRandomJoke.setup}
+                      </p>
+                    </div>
+
+                    <div className="animate-in fade-in slide-in-from-left-4 duration-1000 delay-500 fill-mode-both">
+                      <div className="flex gap-4 p-4 bg-green-500/5 border-l-2 border-green-500">
+                        <span className="text-green-500 font-bold">→</span>
+                        <p className="text-xl sm:text-2xl font-bold text-green-400 italic">
+                          {activeRandomJoke.punchline}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Randomize Button */}
                 <button
                   onClick={() => pickRandomJoke(jokes)}
-                  className="group relative inline-flex items-center justify-center px-10 py-5 font-black text-white transition-all duration-200 bg-orange-500 border-4 border-black rounded-xl hover:bg-orange-400 hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0px_0px_0px_0px_rgba(0,0,0,1)] uppercase tracking-widest text-xl"
+                  className="flex items-center gap-3 bg-black text-white px-8 py-4 rounded-xl font-black uppercase tracking-tighter hover:bg-slate-800 active:scale-95 transition-all shadow-lg"
                 >
-                  <RefreshCcw className="w-6 h-6 mr-3 group-active:animate-spin" />{" "}
-                  Hit Me Again
+                  <RefreshCcw className="w-5 h-5" />
+                  Execute Next
                 </button>
               </div>
             )}
 
-            {/* --- VIEW 2: LIST / FEED VIEW --- */}
+            {/* --- VIEW 2: COMMIT LOG VIEW --- */}
             {viewMode === "list" && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-in slide-in-from-bottom-8 duration-500">
+              <div className="space-y-3">
                 {jokes.map((joke) => (
                   <div
                     key={joke.id}
-                    className="border-4 border-black bg-white p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rounded-2xl hover:-translate-y-2 hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-all"
+                    className="group bg-white border border-slate-200 rounded-lg overflow-hidden transition-all hover:border-black hover:shadow-md"
                   >
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="font-black text-gray-400 text-lg">
-                        #{joke.id}
-                      </span>
-                      {joke.categories?.length > 0 && (
-                        <span className="bg-orange-200 border-2 border-black px-2 py-0.5 text-xs font-bold uppercase">
-                          {joke.categories[0]}
-                        </span>
-                      )}
-                    </div>
+                    <div className="p-4 flex items-start gap-4">
+                      <div className="flex flex-col items-center py-1">
+                        <div className="w-2 h-2 rounded-full bg-slate-300 group-hover:bg-orange-500"></div>
+                        <div className="w-[1px] h-full bg-slate-200 group-hover:bg-slate-800"></div>
+                      </div>
 
-                    <p className="text-lg font-bold font-sans">
-                      {joke.content}
-                    </p>
+                      <div className="flex-grow">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[10px] font-mono font-bold text-slate-400">
+                            #00{joke.id}
+                          </span>
+                          <span className="text-[10px] font-mono font-black text-orange-600 bg-orange-50 px-1.5 rounded">
+                            MODIFIED
+                          </span>
+                        </div>
+                        <h3 className="font-bold text-slate-800 text-lg leading-tight mb-2">
+                          {joke.setup}
+                        </h3>
+
+                        {/* Auto-Reveal on Hover logic */}
+                        <div className="max-h-0 overflow-hidden group-hover:max-h-20 transition-all duration-500 ease-in-out">
+                          <div className="pt-2 border-t border-slate-100 mt-2 text-green-600 font-mono font-bold">
+                            + {joke.punchline}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
             )}
-          </main>
+          </div>
         )}
-      </div>
-    </div>
+      </main>
+    </PageLayout>
   );
 }
